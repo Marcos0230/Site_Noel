@@ -1,0 +1,17 @@
+.gradient-title {
+    background: rgb(255, 0, 0);
+    background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 35%, rgba(0, 255, 0, 1) 100%);
+    font-weight: bold;
+}
+
+.grid-main {
+    margin-top: 5rem;
+}
+
+.row {
+    margin-top: 5rem;
+}
+
+.title {
+    margin-top: 5rem;
+}
