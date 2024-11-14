@@ -1,4 +1,4 @@
-.gradient-title {
+.gradient-navbar {
     background: rgb(255, 0, 0);
     background: linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(240, 240, 240, 1) 35%, rgba(0, 255, 0, 1) 100%);
     font-weight: bold;
