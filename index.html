@@ -181,12 +181,14 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container mt-3 mb-10">
-            <div class="position-relative">
-                <img alt="Carte de voeux" class="img-fluid w-100" src="img/Wish.png">
-                <div class="form-on-image position-absolute top-50 start-50 translate-middle  rounded bg-light shadow">
+            <div class="position-relative printable-container" id="printable-container">
+                <img alt="Carte de voeux" class="img-fluid w-100 wish_image" src="img/Wish.png">
+                <div class="form-on-image position-absolute top-50 start-50 translate-middle rounded bg-light shadow div_form">
                     <form>
                         <label>
-                            <textarea class="input_carte_voeu" placeholder="Écrivez votre carte de voeu ici..."></textarea>
+            <textarea class="input_carte_voeu"
+                      id="input_carte_voeu"
+                      placeholder="Écrivez votre carte de voeu ici..."></textarea>
                         </label>
                     </form>
                 </div>
@@ -194,7 +196,109 @@
         </div>
     </div>
 
+    <div class="text-center mt-4 p-4">
+        <button class="btn btn-primary" onclick="printContainer()">Imprimer votre carte de voeux !</button>
+    </div>
 </div>
+
+<script>
+    function printContainer() {
+        // Select the container to print
+        const container = document.getElementById('printable-container');
+        const textarea = document.getElementById('input_carte_voeu');
+
+        // Clone the container (the clone will not affect the main page)
+        const printableContent = container.cloneNode(true);
+
+        // Replace the textarea in the clone with its value
+        const formDiv = printableContent.querySelector('.div_form');
+        const textValue = textarea.value.trim();
+        const printableText = document.createElement('div');
+        printableText.style.padding = '0.5rem';
+        printableText.style.textAlign = 'center';
+        printableText.textContent = textValue || 'Écrivez votre carte de voeu ici...';
+        formDiv.innerHTML = ''; // Clear the form
+        formDiv.appendChild(printableText);
+
+        // Open a new window for printing
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        if (!printWindow) return;
+
+        // Write the printable content into the new window
+        printWindow.document.open();
+        printWindow.document.write(`
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimer votre carte de voeux</title>
+    <style>
+      /* Ensure the page uses A4 size and landscape orientation */
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      /* Reset body margins for accurate scaling */
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Container for the wishcard */
+      .position-relative {
+        position: relative;
+        width: calc(100% - 2cm); /* Leave some margin */
+        height: auto;
+        max-height: 100%;
+      }
+
+      /* Ensure the image scales proportionally */
+      .wish_image {
+        width: 100%;
+        height: auto;
+      }
+
+      /* Center and fit text area/form within the image */
+      .div_form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 80%; /* Adjust width to fit text */
+        background: none;
+      }
+      .div_form div {
+        font-size: 1rem;
+        font-weight: bold;
+        color: black;
+        word-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    ${printableContent.outerHTML}
+  </body>
+  </html>
+`);
+
+
+        printWindow.document.close();
+
+        // Trigger the print dialog
+        printWindow.onload = () => {
+            printWindow.print();
+            printWindow.close();
+        };
+    }
+</script>
 
 
 <script crossorigin="anonymous"
