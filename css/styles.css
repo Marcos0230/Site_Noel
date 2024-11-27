@@ -19,6 +19,7 @@
 .title {
     margin-top: 5rem;
     color: white;
+    font-family: Chewy, Ariel, sans-serif;
 }
 
 .bg_page_color {
@@ -31,4 +32,12 @@
 .input_carte_voeu {
     width: 40lvmax;
     height: 20lvmax;
+}
+
+.footer_text {
+    font-family: Chewy, Ariel, sans-serif;
+}
+
+body {
+    font-family: Quicksand, Ariel, sans-serif;
 }
