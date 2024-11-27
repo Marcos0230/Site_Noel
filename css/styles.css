@@ -4,7 +4,8 @@
         rgba(0, 255, 0, 1) 0%,
         rgba(255, 255, 255, 1) 35%,
         rgba(255, 0, 0, 1) 100%);
-    font-weight: bold;
+    font-weight: normal;
+    font-family: Mogra, Arial, sans-serif;
 }
 
 .grid-main {
